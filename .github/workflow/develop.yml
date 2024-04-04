@@ -1,0 +1,21 @@
+name: Deploy Develop Environment
+
+on:
+  pull_request:
+    branches:
+      - develop
+    types:
+      - closed
+
+jobs:
+  build:
+    name:
+      steps:
+        - name: checkout
+          uses: actions/checkout@v3
+        - name: Log in to the Container registry
+          uses: docker/login-action@v2
+          with:
+            registry: ${{ vars.ACR_LOGIN_SERVER }}
+            username: ${{ vars.ACR_USER_NAME }}
+            password: ${{ secrets.ACR_PASSWORD }}
